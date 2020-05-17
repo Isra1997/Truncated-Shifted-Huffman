@@ -1,4 +1,4 @@
-function [encoded_image,dictionary]=Main_huffman(img_path,Huffman_Type)
+function [encoded_image,dictionary]=Main_huffman(img_path,Huffman_Type,k)
     % reading the image    
     img = imread(img_path);
     
@@ -45,7 +45,7 @@ function [encoded_image,dictionary]=Main_huffman(img_path,Huffman_Type)
     end
     % Calling the truncated huffman function 
     if Huffman_Type == 'T'
-        dictionary = Truncated_Huffman_code(p,4);
+        dictionary = Truncated_Huffman_code(p,k);
         
         [rows, columns, numberOfColorChannels] = size(img);
         
@@ -59,7 +59,7 @@ function [encoded_image,dictionary]=Main_huffman(img_path,Huffman_Type)
     
     % Calling the shifted huffman function 
     if Huffman_Type == 'S'
-        dictionary = Shifted_Huffman_code(p);
+        dictionary = Shifted_Huffman_code(p,k);
         
         [rows, columns, numberOfColorChannels] = size(img);
         

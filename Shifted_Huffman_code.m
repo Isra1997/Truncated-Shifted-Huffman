@@ -1,17 +1,7 @@
-function [Dictinary]=Shifted_Huffman_code(p)
+function [Dictinary]=Shifted_Huffman_code(p,k)
 
-    block_size = 2;
+    block_size = k;
     length_p = length(p);
-    num_of_block=0;
-    
-    % calculating the block size that creates even height blocks
-    while (block_size < length_p)
-        if (mod(length_p,block_size)==0)
-            break;
-        else
-             block_size = block_size+1;
-        end
-    end
     
     % creating an array to place the referance block in     
     Referance_block = zeros(block_size+1,1);
