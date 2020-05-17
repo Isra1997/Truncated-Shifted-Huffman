@@ -41,9 +41,23 @@ function [encoded_image,dictionary]=Main_huffman(img_path,Huffman_Type)
         % encoding the image 
         encoded_image = source_coding(oi,symbols,dictionary);
 
-        fprintf('\nFile size was reduced by %f KiB\n', (512*512*8-length(encoded_image))/(1024*8));
+        fprintf('\nFile size was reduced by %f KiB\n', (rows*columns*numberOfColorChannels*8-length(encoded_image))/(1024*8));
+    end
+    % Calling the truncated huffman function 
+    if Huffman_Type == 'T'
+        dictionary = Truncated_Huffman_code(p,4);
+        
+        [rows, columns, numberOfColorChannels] = size(img);
+        
+        oi = reshape(img,[rows, columns, numberOfColorChannels]) ;
+
+        % encoding the image 
+        encoded_image = source_coding(oi,symbols,dictionary);
+
+        fprintf('\nFile size was reduced by %f KiB\n', (rows*columns*numberOfColorChannels*8-length(encoded_image))/(1024*8));
     end
     
+    % Calling the shifted huffman function 
     if Huffman_Type == 'S'
         dictionary = Shifted_Huffman_code(p);
         
@@ -54,9 +68,9 @@ function [encoded_image,dictionary]=Main_huffman(img_path,Huffman_Type)
         % encoding the image 
         encoded_image = source_coding(oi,symbols,dictionary);
 
-        fprintf('\nFile size was reduced by %f KiB\n', (512*512*8-length(encoded_image))/(1024*8));
+        fprintf('\nFile size was reduced by %f KiB\n', (rows*columns*numberOfColorChannels*8-length(encoded_image))/(1024*8));
     end
-
+    
 
 
 

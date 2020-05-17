@@ -36,7 +36,6 @@ function [Dictinary]=Shifted_Huffman_code(p)
     
     % preforming the shifted hufman    
     for i=block_size+1:length_p
-        
         if(c>=block_size)
             c = 1;
             num_of_block = floor(i/block_size);
