@@ -31,20 +31,21 @@ function [Dictinary]=Shifted_Huffman_code(p)
     
     % placing the codes of the referance block in the begining of the dictionary 
     Dictinary = {Block_dictionary{1:length(Block_dictionary)-1}};
-    
-
+    celldisp(Dictinary)
+    c=0;
     % preforming the shifted hufman    
-    for i=block_size:length_p:block_size
-        num_of_block = length_p/i;
-        added_ones = num2str(ones(num_of_block,1));
-        for j=1:block_size
-            cell_num = i+j;
-            Dictinary{cell_num} = strcat(added_ones,Block_dictionary{j});
+    for i=block_size+1:length_p
+        if(c>block_size)
+            c = 1;
+        else
+            c = c+1;
         end
-        
+        num_of_block = uint16(i/block_size);
+        added_ones = num2str(ones(1,num_of_block));
+        added_ones= added_ones(find(~isspace(added_ones)));
+        Dictinary{i} = strcat(added_ones,Block_dictionary{c});
     end
     
-        celldisp(Dictinary)
     
 end
 
