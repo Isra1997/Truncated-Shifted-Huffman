@@ -12,8 +12,6 @@ function [Dictinary]=Shifted_Huffman_code(p)
              block_size = block_size+1;
         end
     end
-    display(block_size)
-    
     
     % creating an array to place the referance block in     
     Referance_block = zeros(block_size+1,1);
@@ -32,9 +30,10 @@ function [Dictinary]=Shifted_Huffman_code(p)
     
     % placing the codes of the referance block in the begining of the dictionary 
     Dictinary = {Block_dictionary{1:length(Block_dictionary)-1}};
-    celldisp(Dictinary)
+
     c=0;
     num_of_block=1;
+    
     % preforming the shifted hufman    
     for i=block_size+1:length_p
         

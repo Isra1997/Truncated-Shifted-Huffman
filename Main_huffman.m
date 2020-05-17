@@ -7,17 +7,19 @@ function [encoded_image,dictionary]=Main_huffman(img_path,Huffman_Type)
 
     % empty array to store the probabilities of the uniquie symbols 
     p = zeros(length(symbols),1);
-
+    
+    [x,y,b]=size(img);
     % calculating the frequency of each symbols
     for i = 1:length(symbols)
-        for m = 1:length(img(:,1)) 
-            for n = 1:length(img(1,:))
-                if symbols(i) == img(m,n)
-                        p(i) = p(i) + 1;
+       for j=1:b
+            for m = 1:x
+                for n = 1:y
+                    if symbols(i) == img(m,n,j)
+                            p(i) = p(i) + 1;
+                    end
                 end
             end
-        end
-
+       end
     end
     
     % calculating the total number of pixels in the array     
@@ -43,7 +45,16 @@ function [encoded_image,dictionary]=Main_huffman(img_path,Huffman_Type)
     end
     
     if Huffman_Type == 'S'
-        dictionary = Shifted_Huffman_code(p)
+        dictionary = Shifted_Huffman_code(p);
+        
+        [rows, columns, numberOfColorChannels] = size(img);
+        
+        oi = reshape(img,[rows, columns, numberOfColorChannels]) ;
+
+        % encoding the image 
+        encoded_image = source_coding(oi,symbols,dictionary);
+
+        fprintf('\nFile size was reduced by %f KiB\n', (512*512*8-length(encoded_image))/(1024*8));
     end
 
 
