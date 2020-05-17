@@ -2,6 +2,7 @@ function [Dictinary]=Shifted_Huffman_code(p)
 
     block_size = 2;
     length_p = length(p);
+    num_of_block=0;
     
     % calculating the block size that creates even height blocks
     while (block_size < length_p)
@@ -33,14 +34,16 @@ function [Dictinary]=Shifted_Huffman_code(p)
     Dictinary = {Block_dictionary{1:length(Block_dictionary)-1}};
     celldisp(Dictinary)
     c=0;
+    num_of_block=1;
     % preforming the shifted hufman    
     for i=block_size+1:length_p
-        if(c>block_size)
+        
+        if(c>=block_size)
             c = 1;
+            num_of_block = floor(i/block_size);
         else
             c = c+1;
         end
-        num_of_block = uint16(i/block_size);
         added_ones = num2str(ones(1,num_of_block));
         added_ones= added_ones(find(~isspace(added_ones)));
         Dictinary{i} = strcat(added_ones,Block_dictionary{c});
