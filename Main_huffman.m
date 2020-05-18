@@ -28,7 +28,8 @@ function [encoded_image,dictionary]=Main_huffman(img_path,Huffman_Type,k)
     % divide the frequency array with the total number of pixels in the
     % array to calculate the probablitiy of each symbol
     p = p ./ count;
-    
+   
+    test = [0.3;0.2;0.15;0.1;0.08;0.06;0.05;0.04;0.02];
     % Calling the huffman function 
     if Huffman_Type == 'H'
         % calculating the huffman dictionary        
@@ -38,7 +39,7 @@ function [encoded_image,dictionary]=Main_huffman(img_path,Huffman_Type,k)
         
         oi = reshape(img,[rows, columns, numberOfColorChannels]) ;
 
-        % encoding the image 
+        % encoding the image
         encoded_image = source_coding(oi,symbols,dictionary);
 
         fprintf('\nFile size was reduced by %f KiB\n', (rows*columns*numberOfColorChannels*8-length(encoded_image))/(1024*8));
@@ -71,6 +72,9 @@ function [encoded_image,dictionary]=Main_huffman(img_path,Huffman_Type,k)
         fprintf('\nFile size was reduced by %f KiB\n', (rows*columns*numberOfColorChannels*8-length(encoded_image))/(1024*8));
     end
     
+%     Note: to test the code with the exmples in the lecture please replace
+%     the p variable in every method with the array test and comment the
+%     four lines below the method call
 
 
 

@@ -21,10 +21,10 @@ function [Dictinary]=Truncated_Huffman_code(p,k)
     % counter to access the the probability arry startfing from k to
     % length(p)
     c=k+1;
-   
+    min_dig = length(de2bi(length(p)-k));
     for i=1:length(p)-k
         % creating a binary string of the number we stoped at       
-        added_binay_code = num2str(de2bi(i-1,'left-msb'));
+        added_binay_code = num2str(de2bi(i-1,min_dig,'left-msb'));
         % removing spaces and storing creating a string out of the binary code 
         added_binay_code = added_binay_code(find(~isspace(added_binay_code)));
         % concatenating the calculate huffman code for Ax and the binary string      
