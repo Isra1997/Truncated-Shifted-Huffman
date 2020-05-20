@@ -41,8 +41,20 @@ function [encoded_image,dictionary]=Main_huffman(img_path,Huffman_Type,k)
 
         % encoding the image
         encoded_image = source_coding(oi,symbols,dictionary);
-
-        fprintf('\nFile size was reduced by %f KiB\n', (rows*columns*numberOfColorChannels*8-length(encoded_image))/(1024*8));
+        
+        % joining the symbols and dictionary in one dictionary
+        Dict = {};
+        for i=1:length(symbols)
+            Dict{i} = strcat(num2str(symbols(i)),':',dictionary{i});
+        end
+        
+        img_p = strcat('Result_',img_path(1),'_Huffman.txt');
+        fileID = fopen(img_p,'w');
+        fprintf(fileID,'\n Dictionary \n');
+        fprintf(fileID,'\n %s \n', Dict{:});
+        fprintf(fileID,'\n encoded_image :%s\n',encoded_image);
+        fprintf(fileID,'\nFile size was reduced by %f KiB\n', (rows*columns*numberOfColorChannels*8-length(encoded_image))/(1024*8));
+        fclose(fileID);
     end
     % Calling the truncated huffman function 
     if Huffman_Type == 'T'
@@ -54,8 +66,19 @@ function [encoded_image,dictionary]=Main_huffman(img_path,Huffman_Type,k)
 
         % encoding the image 
         encoded_image = source_coding(oi,symbols,dictionary);
-
-        fprintf('\nFile size was reduced by %f KiB\n', (rows*columns*numberOfColorChannels*8-length(encoded_image))/(1024*8));
+        
+        % joining the symbols and dictionary in one dictionary
+        Dict = {};
+        for i=1:length(symbols)
+            Dict{i} = strcat(num2str(symbols(i)),':',dictionary{i});
+        end
+        img_p = strcat('Result_',img_path(1),'_Truncated.txt');
+        fileID = fopen(img_p,'w');
+        fprintf(fileID,'\n Dictionary \n');
+        fprintf(fileID,'\n %s \n', Dict{:});
+        fprintf(fileID,'\n encoded_image :%s\n',encoded_image);
+        fprintf(fileID,'\nFile size was reduced by %f KiB\n', (rows*columns*numberOfColorChannels*8-length(encoded_image))/(1024*8));
+        fclose(fileID);
     end
     
     % Calling the shifted huffman function 
@@ -70,6 +93,20 @@ function [encoded_image,dictionary]=Main_huffman(img_path,Huffman_Type,k)
         encoded_image = source_coding(oi,symbols,dictionary);
 
         fprintf('\nFile size was reduced by %f KiB\n', (rows*columns*numberOfColorChannels*8-length(encoded_image))/(1024*8));
+        
+        % joining the symbols and dictionary in one dictionary
+        Dict = {};
+        for i=1:length(symbols)
+            Dict{i} = strcat(num2str(symbols(i)),':',dictionary{i});
+        end
+        
+        img_p = strcat('Result_',img_path(1),'_Shifted.txt');
+        fileID = fopen(img_p,'w');
+        fprintf(fileID,'\n Dictionary \n');
+        fprintf(fileID,'\n %s \n', Dict{:});
+        fprintf(fileID,'\n encoded_image :%s\n',encoded_image);
+        fprintf(fileID,'\nFile size was reduced by %f KiB\n', (rows*columns*numberOfColorChannels*8-length(encoded_image))/(1024*8));
+        fclose(fileID);
     end
     
 %     Note: to test the code with the exmples in the lecture please replace
